@@ -4,7 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { SearchService } from 'app/service/search.service';
+
 
 @NgModule({
   declarations: [
@@ -15,7 +17,7 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
     FormsModule,
     HttpModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [SearchService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

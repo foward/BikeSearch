@@ -1,3 +1,20 @@
 <h1>
   {{title}}
 </h1>
+
+<img src="/assets/watson.gif" />
+
+Test:
+{{ bikeResult}}
+
+            <div  *ngFor="let bike of bikeResult">
+                         <h4>Bike  {{bike.fileName}}</h4>
+                      <p >Classifiers: {{bike.classifiers}} </p>
+                         <div  *ngFor="let classifier of bike.classifiers">
+                                <p> {{classifier.name }}</p>
+                         </div>
+            
+             </div>
+
+
+
