@@ -1,3 +1,119 @@
-<h1>
-  {{title}}
-</h1>
+<div class="ui grid">
+
+    <div class="row">
+        <div class="blue sixteen wide column">
+            <br>
+
+            <div class="ui center aligned white header">
+                <img class="ui tiny image" src="./assets/logo-watson.png">
+                <h1 class="content">
+                    {{title}}
+                </h1>
+            </div>
+
+            <br>
+        </div>
+
+    </div>
+
+    <div class="row" style="height: 500px;">
+
+        <div class="ui doubling grid container">
+            <div class="four wide column">
+
+                <sm-dropdown title="Farbe" action="nothing" class="fluid search selection">
+                    <a sm-item *ngFor="let color of colors" data-value="" (click)="add('color',color)">{{color}}</a>
+                </sm-dropdown>
+
+
+            </div>
+            <div class="four wide column">
+
+
+                <sm-dropdown title="Kategorie" class="fluid search selection">
+                    <a sm-item *ngFor="let cat of categories" data-value="" (click)="add('category',cat)">{{cat}}</a>
+                </sm-dropdown>
+
+            </div>
+            <div class="four wide column">
+
+                <sm-dropdown title="Geschlecht" class="fluid search selection">
+                    <a sm-item *ngFor="let gen of genders" data-value="" (click)="add('gender',g);">{{gen}}</a>
+                </sm-dropdown>
+
+            </div>
+            <div class="column">
+                <a href="#" (click)="search()" class="ui left floated blue button">
+              Suchen
+            </a>
+            </div>
+
+        </div>
+
+        <div class="ui relaxed doubling grid container">
+            <div class="row">
+
+                <div class="four wide computer eight wide tablet column" *ngFor="let bk of bikes">
+
+                    <div class="ui card">
+                        <img class="ui image" src="{{bk.img}}">
+                        <div class="content">
+                            <div class="header">{{bk.name}}
+                            </div>
+                        </div>
+                        <div class="content">
+                            <a class="ui fluid positive button">Das ist es!</a>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--div class="row" style="height: 300px;">
+        <div class="ui doubling grid container">
+            <div class="ui sixteen wide column">
+                <h3 class="ui header">Deine Auswahl</h3>
+                <p *ngIf="selection.length == 0">Es wurden keine Paramter ausgewählt!</p>
+                <br>
+                <div *ngFor="let item of selection" style="display: inline;margin-right: 5px;">
+                    <div class="ui blue massive label" (click)="remove(item.value);">
+                        {{item.value}}
+                        <i class="delete icon" (click)="remove(item.value);"></i>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div-->
+
+    <div class="ui blue divider "></div>
+
+    <div class="row ">
+        <div class="ui grid container ">
+            <div class="column ">
+
+                <img class="ui small image " src="./assets/footer.png ">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="ui full-screen " *ngIf="searching ">
+    <div class="ui active inverted dimmer center middle aligned ">
+        <div class="ui header " style="margin-top: 40%; ">
+            <img class="ui massive image " src="./assets/watson.gif ">
+            <h3 class="content ">Such nach ähnlichen Fahrrädern...</h3>
+        </div>
+    </div>
+</div>
+
+<script>
+</script>

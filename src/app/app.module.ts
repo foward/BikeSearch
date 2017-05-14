@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { NgSemanticModule } from 'ng-semantic';
 
 import { AppComponent } from './app.component';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
@@ -13,9 +14,14 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    NgSemanticModule
   ],
   providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+
+  
+}
