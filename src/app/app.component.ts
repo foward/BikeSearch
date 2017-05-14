@@ -13,21 +13,25 @@ import { BikeResultList } from "app/model/bikeresultlist";
 })
 export class AppComponent {
   title = 'Wo ist mein Fahrrad?!';
-  categories = ["neu","alt"];
-  colors = ["rot","grün","blau"];
-  genders = ["Männlich","Weiblich"];
+  categories = ["mountainbike","citybike","racer"];
+  colors = ["green","blue","yellow","black","red","silverwhite"];
+  genders = ["men","women","children"];
 
-
-  bikes = [{"name":"Bike","img":"none"},{"name":"Bike","img":"none"},{"name":"Bike","img":"none"}];
+  selected_color = "";
+  selected_cat = "";
+  selected_gen = "";
 
   selection = [];
 
   searching = false;
+  
+  bikes: BikeResultList[];
+  errorMessage:string;
 
   constructor(private searchService: SearchService) { }
 
   ngOnInit(){
-    this.getBikes();
+   
   }
 
   remove(val){
@@ -55,22 +59,24 @@ export class AppComponent {
   search(){
     this.searching = true;
 
-    //doSearch
-
-    this.searching = false;
+    this.getBikes();
   }
 
-  bikeResults: BikeResultList[];
-errorMessage:string;
-
   getBikes() {
+    var conf = {"color":this.selected_color,"type":this.selected_gen,"category":this.selected_cat};
 
-    this.searchService.getBikes()
+    this.searchService.getBikes(conf)
                      .subscribe(
-                       bikeResults => this.bikeResults = bikeResults,
+                       bikeResults => this.finish(bikeResults),
                        error =>  this.errorMessage = <any>error);
 
    
+  }
+
+  finish(res){
+    this.bikes = res
+    console.log(res);
+    this.searching = false;
   }
 
 

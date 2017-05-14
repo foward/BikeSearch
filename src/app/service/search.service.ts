@@ -8,12 +8,13 @@ import { BikeResultList } from "app/model/bikeresultlist";
 @Injectable()
 export class SearchService {
     private bikesUrl = 'assets/mock-response.json';  // URL to web API
+    private url = "https://getstartedjava-censureless-cryptography.mybluemix.net/api/bikes/";
 
     constructor(private http: Http) { }
 
 
 
-    getBikes(): Observable<BikeResultList[]> {
+    getBikes(config): Observable<BikeResultList[]> {
 
                    return this.http.get(this.bikesUrl)
                     .map(this.extractData)
@@ -24,8 +25,9 @@ export class SearchService {
     private extractData(res: Response) {
         let body = res.json();
         console.info("text ", body);
-        return body.data || {};
+        return body.bikeResultList || {};
     }
+
     private handleError(error: Response | any) {
         // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;

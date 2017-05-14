@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="ui grid">
 
     <div class="row">
@@ -22,8 +21,8 @@
         <div class="ui doubling grid container">
             <div class="four wide column">
 
-                <sm-dropdown title="Farbe" action="nothing" class="fluid search selection">
-                    <a sm-item *ngFor="let color of colors" data-value="" (click)="add('color',color)">{{color}}</a>
+                <sm-dropdown title="Farbe" class="fluid search selection">
+                    <a sm-item *ngFor="let color of colors" data-value="color" (click)="selected_color = color;">{{color}}</a>
                 </sm-dropdown>
 
 
@@ -32,14 +31,14 @@
 
 
                 <sm-dropdown title="Kategorie" class="fluid search selection">
-                    <a sm-item *ngFor="let cat of categories" data-value="" (click)="add('category',cat)">{{cat}}</a>
+                    <a sm-item *ngFor="let cat of categories" data-value="cat" (click)="selected_cat = cat;">{{cat}}</a>
                 </sm-dropdown>
 
             </div>
             <div class="four wide column">
 
                 <sm-dropdown title="Geschlecht" class="fluid search selection">
-                    <a sm-item *ngFor="let gen of genders" data-value="" (click)="add('gender',g);">{{gen}}</a>
+                    <a sm-item *ngFor="let gen of genders" data-value="gen" (click)="selected_gen = gen;">{{gen}}</a>
                 </sm-dropdown>
 
             </div>
@@ -52,18 +51,17 @@
         </div>
 
         <div class="ui relaxed doubling grid container">
-            <div class="row">
+            <div class="row" *ngIf="bikes">
 
                 <div class="four wide computer eight wide tablet column" *ngFor="let bk of bikes">
 
                     <div class="ui card">
-                        <img class="ui image" src="{{bk.img}}">
+                        <img class="ui image" src="http://www/{{bk.bike.fileName}}">
                         <div class="content">
-                            <div class="header">{{bk.name}}
-                            </div>
+                            {{bk.classifiers[0].matches[0].match}}% confidence
                         </div>
                         <div class="content">
-                            <a class="ui fluid positive button">Das ist es!</a>
+                            <a class="ui fluid positive button" (click)="myModalNormal.show({inverted: true})">Das ist es!</a>
 
 
                         </div>
@@ -95,6 +93,8 @@
 
     <div class="ui blue divider "></div>
 
+
+    <button class="ui button primary" (click)="myModalNormal.show({inverted: true})">Click me</button>
     <div class="row ">
         <div class="ui grid container ">
             <div class="column ">
@@ -106,10 +106,28 @@
     </div>
 </div>
 
+<sm-modal title="Für eine gute Weiterfahrt..." class="" #myModalNormal>
+    <i class="close icon"></i>
+    <modal-content>
+        <div class="ui two images">
+            <img src="" class="ui large image">
+            <h3 class="ui header">Mehr Sicherheit durch Innovative Schlösser!</h3>
+            <img src="http://www.radwz.de/adfc/news/f_schloss1.jpg" class="ui large image">
+        </div>
+    </modal-content>
+    <modal-actions>
+        <div class="ui two buttons">
+            <button class="ui negative button" (click)="myModalNormal.hide()">Nein, danke!</button>
+            <button class="ui positive button" (click)="myModalNormal.hide()">Jetzt kaufen</button>
+        </div>
+    </modal-actions>
+</sm-modal>
+
+
 
 <div class="ui full-screen " *ngIf="searching ">
-    <div class="ui active inverted dimmer center middle aligned ">
-        <div class="ui header " style="margin-top: 40%; ">
+    <div class="ui active inverted blurring dimmer center middle aligned ">
+        <div class="ui header " style="margin-top: 300px; ">
             <img class="ui massive image " src="./assets/watson.gif ">
             <h3 class="content ">Such nach ähnlichen Fahrrädern...</h3>
         </div>
