@@ -1,0 +1,63 @@
+{
+    "bikeResultList": [
+        {"bike": {
+                "fileName":"test01.jpg"
+            },
+            "classifiers": [
+                {"name":"color",
+                    "matches": [
+                        {
+                            "className":"blue",
+                            "match": 0.5
+                        }
+                    ]
+                },
+                 {"name":"type",
+                    "matches": [
+                        {
+                            "className":"female",
+                            "match": 0.5
+                        }
+                    ]
+                },
+                 {"name":"category",
+                    "matches": [
+                        {
+                            "className":"citybike",
+                            "match": 0.5
+                        }
+                    ]
+                }
+            ]
+        },  {"bike": {
+                "fileName":"test02.jpg"
+            },
+            "classifiers": [
+                {"name":"color",
+                    "matches": [
+                        {
+                            "className":"blue",
+                            "match": 0.5
+                        }
+                    ]
+                },
+                 {"name":"type",
+                    "matches": [
+                        {
+                            "className":"female",
+                            "match": 0.5
+                        }
+                    ]
+                },
+                 {"name":"category",
+                    "matches": [
+                        {
+                            "className":"mountainbike",
+                            "match": 0.5
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
