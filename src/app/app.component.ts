@@ -3,7 +3,7 @@ import { SearchService } from "app/service/search.service";
 import { Bike } from "app/model/bike";
 import { BikeResultList } from "app/model/bikeresultlist";
 
-
+import * as $ from "jquery";
 
 @Component({
   selector: 'app-root',
@@ -12,9 +12,9 @@ import { BikeResultList } from "app/model/bikeresultlist";
   providers: [SearchService]
 })
 export class AppComponent {
-  title = 'Wo ist mein Fahrrad?!';
+  title = 'Wo ist mein Fahrrad ?';
   categories = ["mountainbike","citybike","racer"];
-  colors = ["green","blue","yellow","black","red","silverwhite"];
+  static colors = ["green","blue","yellow","black","red","silverwhite"];
   genders = ["men","women","children"];
 
   selected_color = "";
@@ -27,11 +27,14 @@ export class AppComponent {
   
   bikes: BikeResultList[];
   errorMessage:string;
+  
+  constructor(private searchService: SearchService) { 
+  }
 
-  constructor(private searchService: SearchService) { }
+  ngOnInit(){}
 
-  ngOnInit(){
-   
+  getColors(){
+    return AppComponent.colors;
   }
 
   remove(val){
@@ -48,18 +51,21 @@ export class AppComponent {
   }
 
   add(tp,clr){
-
     //this.selection.push({"type":tp,"value":clr});
   }
 
   ngAfterContentInit(){
-     
   }
 
   search(){
     this.searching = true;
 
     this.getBikes();
+  }
+
+  getPictureFromName (name){
+    var picture = name.split('/').pop();
+    return picture;
   }
 
   getBikes() {
@@ -73,11 +79,48 @@ export class AppComponent {
    
   }
 
-  finish(res){
-    this.bikes = res
-    console.log(res);
-    this.searching = false;
+  getAverageMatch(matches){
+    return AppComponent.getMatch(matches);
   }
 
+  static getMatch(matches){
+    var result = 0;
+
+    for(var i=0;i < matches.length;i++){
+      if (AppComponent.colors.indexOf(matches[i].className) > -1){
+        result += matches[i].match * 2;
+      }else{
+        result += matches[i].match;
+      }
+    }
+
+    return result/(matches.length+1);
+  }
+
+ static gm(classifiers){
+      //get matches for 'Farbe'
+      var lst = classifiers[0].matches;
+      console.log(classifiers);
+
+      var max = AppComponent.getMatch(lst);
+
+      return max;
+  }
+
+
+  sorter(x,y){
+
+      var max_x = AppComponent.gm(x.classifiers);
+      var max_y = AppComponent.gm(y.classifiers);
+
+      return max_y - max_x;
+  }
+
+
+  finish(res){
+    this.bikes = res.sort(this.sorter);
+    //console.log(res);
+    this.searching = false;
+  }
 
 }

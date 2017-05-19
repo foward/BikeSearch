@@ -1,11 +1,11 @@
 <div class="ui grid">
 
     <div class="row">
-        <div class="blue sixteen wide column">
+        <div class="blue sixteen wide column" style="margin-bottom: 10px;box-shadow: 2px 0px 4px 0px grey;">
             <br>
 
             <div class="ui center aligned white header">
-                <img class="ui tiny image" src="./assets/logo-watson.png">
+                <img class="ui massive image" src="./assets/logo-watson.png">
                 <h1 class="content">
                     {{title}}
                 </h1>
@@ -16,13 +16,13 @@
 
     </div>
 
-    <div class="row" style="height: 500px;">
+    <div class="row" style="min-height: 500px;">
 
-        <div class="ui doubling grid container">
+        <div class="ui stackable grid container">
             <div class="four wide column">
 
                 <sm-dropdown title="Farbe" class="fluid search selection">
-                    <a sm-item *ngFor="let color of colors" data-value="color" (click)="selected_color = color;">{{color}}</a>
+                    <a sm-item *ngFor="let color of getColors()" data-value="color" (click)="selected_color = color;">{{color}}</a>
                 </sm-dropdown>
 
 
@@ -42,29 +42,34 @@
                 </sm-dropdown>
 
             </div>
-            <div class="column">
-                <a href="#" (click)="search()" class="ui left floated blue button">
+            <div class="four wide column">
+                <button href="#" (click)="search()" class="ui left floated fluid blue button">
               Suchen
-            </a>
+            </button>
             </div>
-
         </div>
 
-        <div class="ui relaxed doubling grid container">
+        <div class="ui grid container">
+            <div class="row" *ngIf="bikes" style="padding: 0px;margin-left: 15px;margin-top: -10px;">
+                <p class="ui text-muted" *ngIf="bikes.length > 0">{{bikes.length}} Fahrräder gefunden</p>
+            </div>
             <div class="row" *ngIf="bikes">
 
-                <div class="four wide computer eight wide tablet column" *ngFor="let bk of bikes">
+                <div class="four wide computer eight wide tablet sixteen wide mobile column" *ngFor="let bk of bikes">
 
                     <div class="ui card">
-                        <img class="ui image" src="http://www/{{bk.bike.fileName}}">
+                        <img class="ui image" src="./assets/images/{{getPictureFromName(bk.bike.fileName)}}">
                         <div class="content">
-                            {{bk.classifiers[0].matches[0].match}}% confidence
+                            <div class="ui center aligned">
+                                {{( getAverageMatch(bk.classifiers[0].matches) *100).toFixed(2)}}%
+                            </div>
                         </div>
-                        <div class="content">
-                            <a class="ui fluid positive button" (click)="myModalNormal.show({inverted: true})">Das ist es!</a>
+                        <!--div class="content">
+                            <button class="ui fluid positive button" (click)="myModalNormal.show({inverted: true})"><i class="smile icon"></i>Das ist es!</button>
 
+                            <a class="ui fluid icon button" href="https://www.ebay-kleinanzeigen.de/s-fahrrad-gestohlen/k0"><i class="shopping basket icon"></i> Jetzt kaufen!</a>
 
-                        </div>
+                        </div-->
                     </div>
                 </div>
 
@@ -93,37 +98,33 @@
 
     <div class="ui blue divider "></div>
 
-
-    <button class="ui button primary" (click)="myModalNormal.show({inverted: true})">Click me</button>
-    <div class="row ">
+    <div class="row">
         <div class="ui grid container ">
             <div class="column ">
 
                 <img class="ui small image " src="./assets/footer.png ">
-
+                <p class="ui">Francisco, Robin, Niels, Slobodanka, Alex & Matthias</p>
             </div>
         </div>
     </div>
+
 </div>
 
 <sm-modal title="Für eine gute Weiterfahrt..." class="" #myModalNormal>
-    <i class="close icon"></i>
-    <modal-content>
-        <div class="ui two images">
-            <img src="" class="ui large image">
-            <h3 class="ui header">Mehr Sicherheit durch Innovative Schlösser!</h3>
-            <img src="http://www.radwz.de/adfc/news/f_schloss1.jpg" class="ui large image">
-        </div>
+    <modal-content class="ui centered">
+
+        <h3 class="ui header">Mehr Sicherheit durch Innovative Schlösser!</h3>
+        <a href="https://www.youtube.com/watch?v=pTPFrww6zdA"><img src="http://www.radwz.de/adfc/news/f_schloss1.jpg" class="ui large image"></a>
+
     </modal-content>
     <modal-actions>
         <div class="ui two buttons">
-            <button class="ui negative button" (click)="myModalNormal.hide()">Nein, danke!</button>
-            <button class="ui positive button" (click)="myModalNormal.hide()">Jetzt kaufen</button>
+            <button class="ui negative button" (click)="myModalNormal.hide()"> Nein, danke!</button>
+            <br>
+            <button class="ui positive button" (click)="myModalNormal.hide()"> Jetzt kaufen</button>
         </div>
     </modal-actions>
 </sm-modal>
-
-
 
 <div class="ui full-screen " *ngIf="searching ">
     <div class="ui active inverted blurring dimmer center middle aligned ">
@@ -133,6 +134,3 @@
         </div>
     </div>
 </div>
-
-<script>
-</script>

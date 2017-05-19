@@ -17,6 +17,12 @@
     background: transparent;
 }
 
-h3.inherit {
-    display: inherit;
+.ui.card {
+    margin-bottom: 20px !important;
+}
+
+p.ui.text-muted {
+    font-size: .8rem;
+    font-style: italic;
+    color: 'lightgrey';
 }

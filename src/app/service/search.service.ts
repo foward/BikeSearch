@@ -8,7 +8,7 @@ import { BikeResultList } from "app/model/bikeresultlist";
 @Injectable()
 export class SearchService {
     private bikesUrl = 'assets/mock-response.json';  // URL to web API
-    private url = "https://getstartedjava-censureless-cryptography.mybluemix.net/api/bikes/";
+    private url = "https://getstartedjava-overcivil-preparental.eu-gb.mybluemix.net/api/bikes/";
 
     constructor(private http: Http) { }
 
@@ -16,9 +16,9 @@ export class SearchService {
 
     getBikes(config): Observable<BikeResultList[]> {
 
-                   return this.http.get(this.bikesUrl)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+        //return this.http.get(this.bikesUrl).map(this.extractData).catch(this.handleError);
+
+        return this.http.post(this.url,config).map(this.extractData).catch(this.handleError);
     }
 
     
