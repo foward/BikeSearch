@@ -21,9 +21,13 @@ export class AppComponent {
   selected_cat = "";
   selected_gen = "";
 
+  cur_bike = "";
+
   selection = [];
 
   searching = false;
+
+  myModalNormal;
   
   bikes: BikeResultList[];
   errorMessage:string;
@@ -32,6 +36,13 @@ export class AppComponent {
   }
 
   ngOnInit(){}
+
+  selectAndShow(bike){
+    var image = this.getPictureFromName(bike.bike.fileName);
+    this.cur_bike = image;
+
+    $("modal-content a img").attr("src", "./assets/images/"+this.cur_bike);
+  }
 
   getColors(){
     return AppComponent.colors;
@@ -58,17 +69,23 @@ export class AppComponent {
   }
 
   search(){
-    this.searching = true;
+    if (this.selected_color != "" && this.selected_gen != "" && this.selected_cat != ""){
+      this.searching = true;
 
-    this.getBikes();
+      this.getBikes();
+    }
   }
 
   getPictureFromName (name){
-    var picture = name.split('/').pop();
-    return picture;
+    if (name != undefined){
+      var picture = name.split('/').pop();
+      return picture;
+    }
+    return name;
   }
 
   getBikes() {
+
     var conf = {"color":this.selected_color,"type":this.selected_gen,"category":this.selected_cat};
 
     this.searchService.getBikes(conf)
