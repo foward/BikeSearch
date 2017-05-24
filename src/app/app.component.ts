@@ -38,7 +38,7 @@ export class AppComponent {
   ngOnInit(){}
 
   selectAndShow(bike){
-    var image = this.getPictureFromName(bike.bike.fileName);
+    var image = this.getPictureFromName(bike.filename);
     this.cur_bike = image;
 
     $("modal-content a img").attr("src", "./assets/images/"+this.cur_bike);
@@ -84,13 +84,19 @@ export class AppComponent {
     return name;
   }
 
+
+
   getBikes() {
 
     var conf = {"color":this.selected_color,"type":this.selected_gen,"category":this.selected_cat};
 
     this.searchService.getBikes(conf)
                      .subscribe(
-                       bikeResults => this.finish(bikeResults),
+              //         bikeResults => this.finish(bikeResults),
+                       (bikeResults) => {
+                       //  console.log(bikeResults);
+                         this.finish(bikeResults);
+                       },
                        error =>  this.errorMessage = <any>error);
 
    
@@ -104,7 +110,7 @@ export class AppComponent {
     var result = 0;
 
     for(var i=0;i < matches.length;i++){
-      if (AppComponent.colors.indexOf(matches[i].className) > -1){
+      if (AppComponent.colors.indexOf(matches[i].classname) > -1){
         result += matches[i].match * 2;
       }else{
         result += matches[i].match;
@@ -135,7 +141,9 @@ export class AppComponent {
 
 
   finish(res){
-    this.bikes = res.sort(this.sorter);
+    //this.bikes = res.sort(this.sorter);
+
+    this.bikes = res;
     //console.log(res);
     this.searching = false;
   }

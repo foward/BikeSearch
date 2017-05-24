@@ -1,8 +1,8 @@
 
-import { Classifier } from "app/model/classifier";
+import { Classes } from "app/model/classes";
 
 export class Bike {
     
     public filename : string;
-    public classifiers : Classifier[];
+    public classes : Classes[];
 }

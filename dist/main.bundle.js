@@ -71,7 +71,7 @@ var AppComponent = AppComponent_1 = (function () {
     }
     AppComponent.prototype.ngOnInit = function () { };
     AppComponent.prototype.selectAndShow = function (bike) {
-        var image = this.getPictureFromName(bike.bike.fileName);
+        var image = this.getPictureFromName(bike.filename);
         this.cur_bike = image;
         __WEBPACK_IMPORTED_MODULE_2_jquery__("modal-content a img").attr("src", "./assets/images/" + this.cur_bike);
     };
@@ -112,7 +112,12 @@ var AppComponent = AppComponent_1 = (function () {
         var _this = this;
         var conf = { "color": this.selected_color, "type": this.selected_gen, "category": this.selected_cat };
         this.searchService.getBikes(conf)
-            .subscribe(function (bikeResults) { return _this.finish(bikeResults); }, function (error) { return _this.errorMessage = error; });
+            .subscribe(
+        //         bikeResults => this.finish(bikeResults),
+        function (bikeResults) {
+            //  console.log(bikeResults);
+            _this.finish(bikeResults);
+        }, function (error) { return _this.errorMessage = error; });
     };
     AppComponent.prototype.getAverageMatch = function (matches) {
         return AppComponent_1.getMatch(matches);
@@ -120,7 +125,7 @@ var AppComponent = AppComponent_1 = (function () {
     AppComponent.getMatch = function (matches) {
         var result = 0;
         for (var i = 0; i < matches.length; i++) {
-            if (AppComponent_1.colors.indexOf(matches[i].className) > -1) {
+            if (AppComponent_1.colors.indexOf(matches[i].classname) > -1) {
                 result += matches[i].match * 2;
             }
             else {
@@ -142,7 +147,8 @@ var AppComponent = AppComponent_1 = (function () {
         return max_y - max_x;
     };
     AppComponent.prototype.finish = function (res) {
-        this.bikes = res.sort(this.sorter);
+        //this.bikes = res.sort(this.sorter);
+        this.bikes = res;
         //console.log(res);
         this.searching = false;
     };
@@ -152,7 +158,7 @@ AppComponent.colors = ["green", "blue", "yellow", "black", "red", "silverwhite"]
 AppComponent = AppComponent_1 = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-root',
-        template: __webpack_require__(231),
+        template: __webpack_require__(230),
         styles: [__webpack_require__(224)],
         providers: [__WEBPACK_IMPORTED_MODULE_1_app_service_search_service__["a" /* SearchService */]]
     }),
@@ -172,8 +178,8 @@ var AppComponent_1, _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_semantic__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_semantic___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng_semantic__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_semantic_ng_semantic__ = __webpack_require__(227);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ng_semantic_ng_semantic___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_ng_semantic_ng_semantic__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_common__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_app_service_search_service__ = __webpack_require__(81);
@@ -206,7 +212,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormsModule"],
             __WEBPACK_IMPORTED_MODULE_3__angular_http__["a" /* HttpModule */],
-            __WEBPACK_IMPORTED_MODULE_4_ng_semantic__["NgSemanticModule"]
+            __WEBPACK_IMPORTED_MODULE_4_ng_semantic_ng_semantic__["NgSemanticModule"]
         ],
         providers: [__WEBPACK_IMPORTED_MODULE_7_app_service_search_service__["a" /* SearchService */], { provide: __WEBPACK_IMPORTED_MODULE_6__angular_common__["LocationStrategy"], useClass: __WEBPACK_IMPORTED_MODULE_6__angular_common__["HashLocationStrategy"] }],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
@@ -252,14 +258,14 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 231:
+/***/ 230:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"ui grid\">\r\n\r\n    <div class=\"row\">\r\n        <div class=\"blue sixteen wide column\" style=\"margin-bottom: 10px;box-shadow: 2px 0px 4px 0px grey;\">\r\n            <br>\r\n\r\n            <div class=\"ui center aligned white header\">\r\n                <img class=\"ui massive image\" src=\"./assets/logo-watson.png\">\r\n                <h1 class=\"content\">\r\n                    {{title}}\r\n                </h1>\r\n            </div>\r\n\r\n            <br>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"row\" style=\"min-height: 500px;\">\r\n\r\n        <div class=\"ui stackable grid container\">\r\n            <div class=\"four wide column\">\r\n\r\n                <sm-dropdown title=\"Farbe\" class=\"fluid search selection\">\r\n                    <a sm-item *ngFor=\"let color of getColors()\" data-value=\"color\" (click)=\"selected_color = color;\">{{color}}</a>\r\n                </sm-dropdown>\r\n\r\n\r\n            </div>\r\n            <div class=\"four wide column\">\r\n\r\n\r\n                <sm-dropdown title=\"Kategorie\" class=\"fluid search selection\">\r\n                    <a sm-item *ngFor=\"let cat of categories\" data-value=\"cat\" (click)=\"selected_cat = cat;\">{{cat}}</a>\r\n                </sm-dropdown>\r\n\r\n            </div>\r\n            <div class=\"four wide column\">\r\n\r\n                <sm-dropdown title=\"Geschlecht\" class=\"fluid search selection\">\r\n                    <a sm-item *ngFor=\"let gen of genders\" data-value=\"gen\" (click)=\"selected_gen = gen;\">{{gen}}</a>\r\n                </sm-dropdown>\r\n\r\n            </div>\r\n            <div class=\"four wide column\">\r\n                <button href=\"#\" (click)=\"search()\" class=\"ui left floated fluid blue button\">\r\n              Suchen\r\n            </button>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"ui grid container\">\r\n            <div class=\"row\" *ngIf=\"bikes\" style=\"padding: 0px;margin-left: 15px;margin-top: -10px;\">\r\n                <p class=\"ui text-muted\" *ngIf=\"bikes.length > 0\">{{bikes.length}} Fahrräder gefunden</p>\r\n            </div>\r\n            <div class=\"row\" *ngIf=\"bikes\">\r\n\r\n                <div class=\"four wide computer eight wide tablet sixteen wide mobile column\" *ngFor=\"let bk of bikes\">\r\n\r\n                    <div class=\"ui card\">\r\n                        <img class=\"ui image clickable\" (click)=\"selectAndShow(bk);myModalNormal.show();\" src=\"./assets/images/{{getPictureFromName(bk.bike.fileName)}}\">\r\n                        <div class=\"content\">\r\n                            <div class=\"ui center aligned\">\r\n                                {{( getAverageMatch(bk.classifiers[0].matches) *100).toFixed(2)}}%\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <!--div class=\"row\" style=\"height: 300px;\">\r\n        <div class=\"ui doubling grid container\">\r\n            <div class=\"ui sixteen wide column\">\r\n                <h3 class=\"ui header\">Deine Auswahl</h3>\r\n                <p *ngIf=\"selection.length == 0\">Es wurden keine Paramter ausgewählt!</p>\r\n                <br>\r\n                <div *ngFor=\"let item of selection\" style=\"display: inline;margin-right: 5px;\">\r\n                    <div class=\"ui blue massive label\" (click)=\"remove(item.value);\">\r\n                        {{item.value}}\r\n                        <i class=\"delete icon\" (click)=\"remove(item.value);\"></i>\r\n                    </div>\r\n\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div-->\r\n\r\n    <div class=\"ui blue divider \"></div>\r\n\r\n    <div class=\"row\">\r\n\r\n        <div class=\"ui grid container\">\r\n            <div class=\"eight wide column\">\r\n                <a href=\"https://www.ibm.com/watson/developercloud/services-catalog.html\"> <img class=\"ui small image\" src=\"./assets/footer.png \"></a>\r\n                <p class=\"ui\">Francisco, Robin, Niels, Slobodanka, Alex & Matthias</p>\r\n            </div>\r\n\r\n            <div class=\"eight wide column\">\r\n                <a href=\"https://www.meetup.com/Blue-Hackers-Club/\"><img class=\"ui tiny right floated image\" src=\"./assets/--BHC logo.png \"></a>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n\r\n<sm-modal title=\"Ansicht für Fahrrad: {{cur_bike.replace('.jpg','')}}\" class=\"small center aligned modal\" #myModalNormal>\r\n    <modal-content class=\"ui center aligned\">\r\n        <a href=\"#\"><img *ngIf=\"cur_bike\" src=\"./assets/images/{{cur_bike}}\" class=\"ui massive image\"></a>\r\n\r\n    </modal-content>\r\n    <modal-content class=\"ui center aligned\">\r\n        <br><br>\r\n        <b>Kontakt zur Polizei</b>\r\n        <p>Telefon: 040 4286-56789<br> E-Mail: lka13arfahrrad@polizei.hamburg.de</p>\r\n        <a class=\"ui blue button\" target=\"_blank\" href=\"mailto:lka13arfahrrad@polizei.hamburg.de?subject=Mir%20gehört%20das%20Fahrrad:%20{{getPictureFromName(cur_bike).replace('.jpg','')}}\">Per E-Mail melden</a>\r\n    </modal-content>\r\n</sm-modal>\r\n\r\n<div class=\"ui full-screen \" *ngIf=\"searching \">\r\n    <div class=\"ui active inverted blurring dimmer center middle aligned \">\r\n        <div class=\"ui header \" style=\"margin-top: 300px; \">\r\n            <img class=\"ui massive image \" src=\"./assets/watson.gif \">\r\n            <h3 class=\"content \">Such nach ähnlichen Fahrrädern...</h3>\r\n        </div>\r\n    </div>\r\n</div>"
+module.exports = "<div class=\"ui grid\">\n\n    <div class=\"row\">\n        <div class=\"blue sixteen wide column\" style=\"margin-bottom: 10px;box-shadow: 2px 0px 4px 0px grey;\">\n            <br>\n\n            <div class=\"ui center aligned white header\">\n                <img class=\"ui massive image\" src=\"./assets/logo-watson.png\">\n                <h1 class=\"content\">\n                    {{title}}\n                </h1>\n            </div>\n\n            <br>\n        </div>\n\n    </div>\n\n    <div class=\"row\" style=\"min-height: 500px;\">\n\n        <div class=\"ui stackable grid container\">\n            <div class=\"four wide column\">\n\n                <sm-dropdown title=\"Farbe\" class=\"fluid search selection\">\n                    <a sm-item *ngFor=\"let color of getColors()\" data-value=\"color\" (click)=\"selected_color = color;\">{{color}}</a>\n                </sm-dropdown>\n\n\n            </div>\n            <div class=\"four wide column\">\n\n\n                <sm-dropdown title=\"Kategorie\" class=\"fluid search selection\">\n                    <a sm-item *ngFor=\"let cat of categories\" data-value=\"cat\" (click)=\"selected_cat = cat;\">{{cat}}</a>\n                </sm-dropdown>\n\n            </div>\n            <div class=\"four wide column\">\n\n                <sm-dropdown title=\"Geschlecht\" class=\"fluid search selection\">\n                    <a sm-item *ngFor=\"let gen of genders\" data-value=\"gen\" (click)=\"selected_gen = gen;\">{{gen}}</a>\n                </sm-dropdown>\n\n            </div>\n            <div class=\"four wide column\">\n                <button href=\"#\" (click)=\"search()\" class=\"ui left floated fluid blue button\">\n              Suchen\n            </button>\n            </div>\n        </div>\n\n\n\n        <div class=\"ui grid container\">\n            <div class=\"row\" *ngIf=\"bikes\" style=\"padding: 0px;margin-left: 15px;margin-top: -10px;\">\n                <p class=\"ui text-muted\" *ngIf=\"bikes.length > 0\">{{bikes.length}} Fahrräder gefunden</p>\n            </div>\n            <div class=\"row\" *ngIf=\"bikes\">\n\n                <div class=\"four wide computer eight wide tablet sixteen wide mobile column\" *ngFor=\"let bk of bikes\">\n\n                    <div class=\"ui card\">\n                        <img class=\"ui image clickable\" (click)=\"selectAndShow(bk);myModalNormal.show();\" src=\"./assets/images/{{getPictureFromName(bk.filename)}}\">\n                        <div class=\"content\">\n                            <div class=\"ui left aligned\">\n\n                               {{ bk.classes[0].classname  }} : {{( (bk.classes[0].score) *100).toFixed(2)}}% <br>\n                                {{ bk.classes[1].classname  }} : {{( (bk.classes[1].score) *100).toFixed(2)}}% <br>\n                                 {{ bk.classes[2].classname  }} : {{( (bk.classes[2].score) *100).toFixed(2)}}% <br>\n                               \n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n            </div>\n\n        </div>\n\n    </div>\n\n    <!--div class=\"row\" style=\"height: 300px;\">\n        <div class=\"ui doubling grid container\">\n            <div class=\"ui sixteen wide column\">\n                <h3 class=\"ui header\">Deine Auswahl</h3>\n                <p *ngIf=\"selection.length == 0\">Es wurden keine Paramter ausgewählt!</p>\n                <br>\n                <div *ngFor=\"let item of selection\" style=\"display: inline;margin-right: 5px;\">\n                    <div class=\"ui blue massive label\" (click)=\"remove(item.value);\">\n                        {{item.value}}\n                        <i class=\"delete icon\" (click)=\"remove(item.value);\"></i>\n                    </div>\n\n                </div>\n            </div>\n        </div>\n    </div-->\n\n    <div class=\"ui blue divider \"></div>\n\n    <div class=\"row\">\n\n        <div class=\"ui grid container\">\n            <div class=\"eight wide column\">\n                <a href=\"https://www.ibm.com/watson/developercloud/services-catalog.html\"> <img class=\"ui small image\" src=\"./assets/footer.png \"></a>\n                <p class=\"ui\">Francisco, Robin, Niels, Slobodanka, Alex & Matthias</p>\n            </div>\n\n            <div class=\"eight wide column\">\n                <a href=\"https://www.meetup.com/Blue-Hackers-Club/\"><img class=\"ui tiny right floated image\" src=\"./assets/--BHC logo.png \"></a>\n            </div>\n        </div>\n\n    </div>\n\n</div>\n\n<sm-modal title=\"Ansicht für Fahrrad: {{cur_bike.replace('.jpg','')}}\" class=\"small center aligned modal\" #myModalNormal>\n    <modal-content class=\"ui center aligned\">\n        <a href=\"#\"><img *ngIf=\"cur_bike\" src=\"./assets/images/{{cur_bike}}\" class=\"ui massive image\"></a>\n\n    </modal-content>\n    <modal-content class=\"ui center aligned\">\n        <br><br>\n        <b>Kontakt zur Polizei</b>\n        <p>Telefon: 040 4286-56789<br> E-Mail: lka13arfahrrad@polizei.hamburg.de</p>\n        <a class=\"ui blue button\" target=\"_blank\" href=\"mailto:lka13arfahrrad@polizei.hamburg.de?subject=Mir%20gehört%20das%20Fahrrad:%20{{getPictureFromName(cur_bike).replace('.jpg','')}}\">Per E-Mail melden</a>\n    </modal-content>\n</sm-modal>\n\n<div class=\"ui full-screen \" *ngIf=\"searching \">\n    <div class=\"ui active inverted blurring dimmer center middle aligned \">\n        <div class=\"ui header \" style=\"margin-top: 300px; \">\n            <img class=\"ui massive image \" src=\"./assets/watson.gif \">\n            <h3 class=\"content \">Such nach ähnlichen Fahrrädern...</h3>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
-/***/ 509:
+/***/ 508:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(159);
@@ -275,7 +281,7 @@ module.exports = __webpack_require__(159);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Observable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__(233);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__ = __webpack_require__(232);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_Rx__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -295,7 +301,7 @@ var SearchService = (function () {
     function SearchService(http) {
         this.http = http;
         this.bikesUrl = 'assets/mock-response.json'; // URL to web API
-        this.url = "https://getstartedjava-overcivil-preparental.eu-gb.mybluemix.net/api/bikes/";
+        this.url = "http://localhost:3000/api/bikes/";
     }
     SearchService.prototype.getBikes = function (config) {
         //return this.http.get(this.bikesUrl).map(this.extractData).catch(this.handleError);
@@ -303,8 +309,8 @@ var SearchService = (function () {
     };
     SearchService.prototype.extractData = function (res) {
         var body = res.json();
-        console.info("text ", body);
-        return body.bikeResultList || {};
+        // console.info("text ", body.docs);
+        return body.docs || {};
     };
     SearchService.prototype.handleError = function (error) {
         // In a real world app, we might use a remote logging infrastructure
@@ -332,5 +338,5 @@ var _a;
 
 /***/ })
 
-},[509]);
+},[508]);
 //# sourceMappingURL=main.bundle.js.map

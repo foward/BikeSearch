@@ -8,7 +8,7 @@ import { BikeResultList } from "app/model/bikeresultlist";
 @Injectable()
 export class SearchService {
     private bikesUrl = 'assets/mock-response.json';  // URL to web API
-    private url = "https://getstartedjava-overcivil-preparental.eu-gb.mybluemix.net/api/bikes/";
+    private url = "https://bikesearchapi.gcloud.eu-de.mybluemix.net/api/bikes/";
 
     constructor(private http: Http) { }
 
@@ -24,8 +24,8 @@ export class SearchService {
     
     private extractData(res: Response) {
         let body = res.json();
-        console.info("text ", body);
-        return body.bikeResultList || {};
+       // console.info("text ", body.docs);
+        return body.docs || {};
     }
 
     private handleError(error: Response | any) {

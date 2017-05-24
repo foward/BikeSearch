@@ -49,6 +49,8 @@
             </div>
         </div>
 
+
+
         <div class="ui grid container">
             <div class="row" *ngIf="bikes" style="padding: 0px;margin-left: 15px;margin-top: -10px;">
                 <p class="ui text-muted" *ngIf="bikes.length > 0">{{bikes.length}} Fahrräder gefunden</p>
@@ -58,10 +60,14 @@
                 <div class="four wide computer eight wide tablet sixteen wide mobile column" *ngFor="let bk of bikes">
 
                     <div class="ui card">
-                        <img class="ui image clickable" (click)="selectAndShow(bk);myModalNormal.show();" src="./assets/images/{{getPictureFromName(bk.bike.fileName)}}">
+                        <img class="ui image clickable" (click)="selectAndShow(bk);myModalNormal.show();" src="./assets/images/{{getPictureFromName(bk.filename)}}">
                         <div class="content">
-                            <div class="ui center aligned">
-                                {{( getAverageMatch(bk.classifiers[0].matches) *100).toFixed(2)}}%
+                            <div class="ui left aligned">
+
+                               {{ bk.classes[0].classname  }} : {{( (bk.classes[0].score) *100).toFixed(2)}}% <br>
+                                {{ bk.classes[1].classname  }} : {{( (bk.classes[1].score) *100).toFixed(2)}}% <br>
+                                 {{ bk.classes[2].classname  }} : {{( (bk.classes[2].score) *100).toFixed(2)}}% <br>
+                               
                             </div>
                         </div>
                     </div>
