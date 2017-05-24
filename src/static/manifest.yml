@@ -1,5 +1,5 @@
 applications:
-- name: wo-ist-meine-fahrrad
+- name: fahrrad-suche
   random-route: true
   memory: 900M
   buildpack: staticfile_buildpack
