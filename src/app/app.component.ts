@@ -13,9 +13,9 @@ import * as $ from "jquery";
 })
 export class AppComponent {
   title = 'Wo ist mein Fahrrad ?';
-  categories = ["mountainbike","citybike","racer"];
-  static colors = ["green","blue","yellow","black","red","silverwhite"];
-  genders = ["men","women","children"];
+  categories = ["mountainbike","citybike","racer",""];
+  static colors = ["green","blue","yellow","black","red","silverwhite",""];
+  genders = ["men","women","children",""];
 
   selected_color = "";
   selected_cat = "";
@@ -69,7 +69,7 @@ export class AppComponent {
   }
 
   search(){
-    if (this.selected_color != "" && this.selected_gen != "" && this.selected_cat != ""){
+    if (this.selected_color != "" || this.selected_gen != "" || this.selected_cat != ""){
       this.searching = true;
 
       this.getBikes();
