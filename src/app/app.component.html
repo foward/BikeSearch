@@ -72,7 +72,12 @@
 
                                 <div id="bikeClasses" *ngFor="let cl of bk.classes">
 
-                                           {{ cl.classname  }} : {{( (cl.score) *100).toFixed(2)}}% <br>
+                                           {{ cl.classname  }} :
+
+                                    <sm-progress class="indicating " [progress]="(cl.score * 100).toFixed(2)"></sm-progress>
+
+
+
                                 </div>
 
                             

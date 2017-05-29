@@ -28,6 +28,8 @@ export class AppComponent {
   searching = false;
 
   myModalNormal;
+
+   percentage = 0;
   
   bikes: BikeResultList[];
   errorMessage:string;
@@ -110,22 +112,29 @@ export class AppComponent {
     var result = 0;
 
     for(var i=0;i < matches.length;i++){
+  
+      
+
       if (AppComponent.colors.indexOf(matches[i].classname) > -1){
-        result += matches[i].match * 2;
+        result += matches[i].score * 2;
       }else{
-        result += matches[i].match;
+        result += matches[i].score;
       }
+
+      
     }
+
+   // console.log("result " + result/(matches.length+1));
 
     return result/(matches.length+1);
   }
 
- static gm(classifiers){
+ static gm(classes){
       //get matches for 'Farbe'
-      var lst = classifiers[0].matches;
-      console.log(classifiers);
+      var lst = classes[2].score;
+    //  console.log(classes);
 
-      var max = AppComponent.getMatch(lst);
+      var max = AppComponent.getMatch(classes);
 
       return max;
   }
@@ -133,17 +142,18 @@ export class AppComponent {
 
   sorter(x,y){
 
-      var max_x = AppComponent.gm(x.classifiers);
-      var max_y = AppComponent.gm(y.classifiers);
+      var max_x = AppComponent.gm(x.classes);
+      var max_y = AppComponent.gm(y.classes);
 
       return max_y - max_x;
   }
 
 
   finish(res){
-    //this.bikes = res.sort(this.sorter);
+    this.bikes = res.sort(this.sorter);
+ //  this.bikes =  this.bikes.filter(bike => bike.classes === this.selected_color)
 
-    this.bikes = res;
+   // this.bikes = res;
     //console.log(res);
     this.searching = false;
   }
