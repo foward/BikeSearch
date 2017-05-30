@@ -10,10 +10,10 @@
                     {{title}}
                 </h1>
 
-                             <div class="ui center aligned white ">
-                  <strong>Note:</strong> This demo was developed in the IBM Retail Hackathon in 24 Hours without Sleep, this is not the final version. 
-            </div>
-                
+                <div class="ui center aligned white normal">
+                    Hinweiß: Diese Demo ist innerhalb von 24 Stunden auf dem IBM Retail Hackathon entstanden.<br> Kleinere Bugs and Fehler in der Bilderkennung sind nicht ausgeschlossen.
+                </div>
+
             </div>
 
 
@@ -22,10 +22,10 @@
 
     </div>
 
-    <div class="row" style="min-height: 500px;">
+    <div class="row">
 
-        <div class="ui stackable grid container">
-            <div class="four wide column">
+        <div class="ui grid container">
+            <div class="four wide computer eight wide mobile column">
 
                 <sm-dropdown title="Farbe" class="fluid search selection">
                     <a sm-item *ngFor="let color of getColors()" data-value="color" (click)="selected_color = color;">{{color}}</a>
@@ -33,7 +33,7 @@
 
 
             </div>
-            <div class="four wide column">
+            <div class="four wide computer eight wide mobile column">
 
 
                 <sm-dropdown title="Kategorie" class="fluid search selection">
@@ -41,22 +41,23 @@
                 </sm-dropdown>
 
             </div>
-            <div class="four wide column">
+            <div class="four wide computer eight wide mobile column">
 
                 <sm-dropdown title="Geschlecht" class="fluid search selection">
                     <a sm-item *ngFor="let gen of genders" data-value="gen" (click)="selected_gen = gen;">{{gen}}</a>
                 </sm-dropdown>
 
             </div>
-            <div class="four wide column">
+            <div class="four wide computer eight wide mobile column">
                 <button href="#" (click)="search()" class="ui left floated fluid blue button">
               Suchen
             </button>
             </div>
         </div>
 
+    </div>
 
-
+    <div class="row" style="min-height: 500px;">
         <div class="ui grid container">
             <div class="row" *ngIf="bikes" style="padding: 0px;margin-left: 15px;margin-top: -10px;">
                 <p class="ui text-muted" *ngIf="bikes.length > 0">{{bikes.length}} Fahrräder gefunden</p>
@@ -72,7 +73,7 @@
 
                                 <div id="bikeClasses" *ngFor="let cl of bk.classes">
 
-                                           {{ cl.classname  }} :
+                                    {{ cl.classname }} :
 
                                     <sm-progress class="indicating " [progress]="(cl.score * 100).toFixed(2)"></sm-progress>
 
@@ -80,8 +81,8 @@
 
                                 </div>
 
-                            
-                               
+
+
                             </div>
                         </div>
                     </div>

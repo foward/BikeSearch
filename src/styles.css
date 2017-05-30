@@ -30,3 +30,7 @@ p.ui.text-muted {
 .clickable {
     cursor: pointer;
 }
+
+.normal {
+    font-size: 0.85rem;
+}

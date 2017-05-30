@@ -13,9 +13,9 @@ import * as $ from "jquery";
 })
 export class AppComponent {
   title = 'Wo ist mein Fahrrad ?';
-  categories = ["mountainbike","citybike","racer",""];
-  static colors = ["green","blue","yellow","black","red","silverwhite",""];
-  genders = ["men","women","children",""];
+  categories = ["mountainbike","citybike","racer"];
+  static colors = ["green","blue","yellow","black","red","silverwhite"];
+  genders = ["men","women","children"];
 
   selected_color = "";
   selected_cat = "";
